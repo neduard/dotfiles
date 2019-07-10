@@ -5,6 +5,7 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
@@ -16,7 +17,12 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'jaxbot/semantic-highlight.vim'
 Plugin 'vimoutliner/vimoutliner'
 Plugin 'igankevich/mesonic'
-Plugin 'vim-utils/vim-cscope'
+Plugin 'ludovicchabant/vim-gutentags'
+Plugin 'scrooloose/nerdtree'
+Plugin 'editorconfig/editorconfig-vim'
+" Plugin 'vim-airline/vim-airline'
+" Plugin 'vim-airline/vim-airline-themes'
+Plugin 'skywind3000/gutentags_plus'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -25,10 +31,10 @@ filetype plugin indent on    " required
 " A must for programming "
 set smartindent
 
-" Change as required "
+" Don't define shiftwidth as that is project-dependent.
+" (use .editorconfig file for example)
 set expandtab
-set shiftwidth=4
-set tabstop=4
+set tabstop=8
 
 let maplocalleader = ";"  " boss.
 
@@ -40,7 +46,10 @@ set ignorecase smartcase hlsearch
 " Easy escape sequence "
 inoremap jj <Esc>
 
-:nnoremap <Leader>s :SemanticHighlightToggle<cr>
+nnoremap <Leader>ss :SemanticHighlightToggle<cr>
+nnoremap <Leader>m :w<cr>:make<cr>
+nnoremap <Leader>n :NERDTree<cr>
+
 
 " Set the current directory to match the file you are editing "
 set autochdir
@@ -73,14 +82,29 @@ set statusline+=%=%-14.(%l,%c%V%)\ %<%P        " right align offset
 " See cscope-options: we should use this perhaps?
 set cscopequickfix=
 
+set diffopt+=vertical
+
+" Configure
+" enable gtags module
+let g:gutentags_modules = ['ctags', 'gtags_cscope']
+" generate datebases in my cache directory, prevent gtags files polluting my project
+let g:gutentags_cache_dir = expand('~/.cache/tags')
+let g:gutentags_plus_switch = 1
+let g:semanticEnableFileTypes = ['cpp', 'h', 'c']
+" let g:gutentags_plus_nomap = 1
+
+syntax on
+
 " TODO: how to handle this in neovim?
 if has('gui_running')
     colorscheme molokai  " When in GUI...
-    set guifont=Monospace\ 10
+    " Doesn't seem to work on MacOS?
+    "set guifont=Monospace\ 10
     set nowrap
     set numberwidth=5
     " Show line numbers "
     set number
+    set relativenumber
     autocmd InsertEnter * :set norelativenumber  " when inserting show line number
     autocmd InsertLeave * :set relativenumber    " otherwise show relative numbers
 else
