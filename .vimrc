@@ -5,7 +5,6 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
@@ -92,6 +91,9 @@ let g:gutentags_cache_dir = expand('~/.cache/tags')
 let g:gutentags_plus_switch = 1
 let g:semanticEnableFileTypes = ['cpp', 'h', 'c']
 " let g:gutentags_plus_nomap = 1
+
+" in the same way we have cs ..
+cnoreabbrev gs GscopeFind
 
 syntax on
 
