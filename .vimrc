@@ -17,8 +17,10 @@ Plugin 'jaxbot/semantic-highlight.vim'
 Plugin 'vimoutliner/vimoutliner'
 Plugin 'igankevich/mesonic'
 Plugin 'ludovicchabant/vim-gutentags'
-Plugin 'scrooloose/nerdtree'
 Plugin 'editorconfig/editorconfig-vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'peitalin/vim-jsx-typescript'
 " Plugin 'vim-airline/vim-airline'
 " Plugin 'vim-airline/vim-airline-themes'
 Plugin 'skywind3000/gutentags_plus'
@@ -81,8 +83,6 @@ set statusline+=%=%-14.(%l,%c%V%)\ %<%P        " right align offset
 " See cscope-options: we should use this perhaps?
 set cscopequickfix=
 
-set diffopt+=vertical
-
 " Configure
 " enable gtags module
 let g:gutentags_modules = ['ctags', 'gtags_cscope']
@@ -94,6 +94,17 @@ let g:semanticEnableFileTypes = ['cpp', 'h', 'c']
 
 " in the same way we have cs ..
 cnoreabbrev gs GscopeFind
+
+" TODO: remap vim terminal normal mode to ESC rather than <C-w> R
+" TODO: gutentags:
+"       1. if there is only one match it should jump to that
+"       2. when doing a search it might be easier to:
+"          split window with quickfix list
+"          selecting one would replace the buffer with selection
+"          this avoids having the quickfix show up in an awkward location on
+"          the screen;
+"          it also avoids when selecting something from the quickfix window,
+"          having it replace an existing buffer.
 
 syntax on
 
