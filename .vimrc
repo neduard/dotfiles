@@ -10,12 +10,12 @@ Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
-Plugin 'idris-hackers/idris-vim'
+"Plugin 'idris-hackers/idris-vim'
 Plugin 'tomasr/molokai'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'jaxbot/semantic-highlight.vim'
-Plugin 'vimoutliner/vimoutliner'
-Plugin 'igankevich/mesonic'
+"Plugin 'vimoutliner/vimoutliner'       "not used
+"Plugin 'igankevich/mesonic'            "not used
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'scrooloose/nerdtree'
@@ -24,6 +24,7 @@ Plugin 'peitalin/vim-jsx-typescript'
 " Plugin 'vim-airline/vim-airline'
 " Plugin 'vim-airline/vim-airline-themes'
 Plugin 'skywind3000/gutentags_plus'
+Plugin 'rhysd/vim-clang-format'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -48,7 +49,7 @@ set ignorecase smartcase hlsearch
 inoremap jj <Esc>
 
 nnoremap <Leader>ss :SemanticHighlightToggle<cr>
-nnoremap <Leader>m :w<cr>:make<cr>
+nnoremap mm :make<cr>
 nnoremap <Leader>n :NERDTree<cr>
 
 
@@ -108,11 +109,19 @@ cnoreabbrev gs GscopeFind
 
 syntax on
 
-" TODO: how to handle this in neovim?
-if has('gui_running')
+if has('gui_running') || has('nvim')
+    set mouse=a
     colorscheme molokai  " When in GUI...
-    " Doesn't seem to work on MacOS?
-    "set guifont=Monospace\ 10
+    if has('mac')
+        let g:macvim_default_touchbar_fullscreen=0
+        let g:macvim_default_touchbar_characterpicker=0
+        set guifont=Menlo:h10
+    else
+        set guifont=Monospace\ 10
+    endif
+    if has('nvim')
+        let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+    endif
     set nowrap
     set numberwidth=5
     " Show line numbers "
