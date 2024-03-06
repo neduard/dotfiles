@@ -1,0 +1,10 @@
+theme = "catppuccin_frappe"
+
+[editor]
+#line-numbers = "relative"
+file-picker.ignore = true
+
+[keys.insert]
+"C-l" = "move_char_right"
+"C-h" = "move_char_left"
+j = {j = "normal_mode", k = [":write", "normal_mode"]}
